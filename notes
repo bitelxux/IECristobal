@@ -1,0 +1,30 @@
+# pipeline branch from webhook
+
+${gitlabSourceBranch}
+
+# have same ssh keys on all slaves
+
+# add jenkins private ssh as a secret to jenkins to connect to slaves
+
+# add jenkins master pub key to jenkins user on gitlab
+# add jenkins slaves  pub key to jenkins user on gitlab
+# add userx pub key to jenkins user on gitlab
+
+# add jenkins pub key to authorized keys on slaves
+
+# create an API token for project on gitlab
+# add that token as a secret text to jenkins
+# use that secret text token to configure gitlab in jenkins manage
+
+# configure network in gitlab to allow webhook
+# configure security in jenkins "allow any one to do anything" to allow webhook without authentication
+
+# reset gitlab password
+
+docker exec -it gitlab bash -c "gitlab-rake 'gitlab:password:reset'"
+
+# disble IPv6 on host
+
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+

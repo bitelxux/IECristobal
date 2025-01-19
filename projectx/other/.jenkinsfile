@@ -1,0 +1,20 @@
+node("builder") {
+    stage("setup") {
+        hostname = sh (script: 'hostname', returnStdout: true)
+        println("hi !! I'm your first pipeline in jenkins from ${hostname}")
+
+        sh "rm -rf ${WORKSPACE}/test-reports"
+    }
+    
+    stage("checkout") {
+        checkout scm
+    }
+    
+    stage("build") {
+        sh "./test_calculator.py"
+    }
+    
+    stage("store results") {
+        junit '**/test-reports/*.xml'
+    }
+}

@@ -1,0 +1,54 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    user: "1000:1000"
+    privileged: true
+    ports:
+     - 8080:8080
+     - 50000:50000
+    container_name: $JENKINS_NAME
+    hostname: jenkins
+    volumes:
+      - '$JENKINS_DATA:/var/jenkins_home'
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 4G 
+    networks:
+      - network_x
+  slave1:
+    image: jenkins-slave
+    container_name: slave1
+    hostname: slave1
+    networks:
+      - network_x
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    container_name: $GITLAB_NAME
+    hostname: 'gitlab.localhost.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.localhost.com'
+    ports:
+      - '80:80'
+      - '9999:22'
+      - '443:443'
+    volumes:
+      - '$GITLAB_DATA/config:/etc/gitlab'
+      - '$GITLAB_DATA/logs:/var/log/gitlab'
+      - '$GITLAB_DATA/data:/var/opt/gitlab'
+    shm_size: '256m'
+    deploy:
+      resources:
+        limits:
+          cpus: "3.0"
+          memory: 8G 
+    networks:
+      - network_x
+
+networks:
+  network_x:
+
+
