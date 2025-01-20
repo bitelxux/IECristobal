@@ -2,10 +2,10 @@
 
 action=$1
 
-QUALIFIER=new
+QUALIFIER=demo
 
-export JENKINS_NAME=jenkins_$QUALIFIER
-export GITLAB_NAME=gitlab_$QUALIFIER
+export JENKINS_NAME=jenkins
+export GITLAB_NAME=gitlab
 
 export JENKINS_DATA=/home/cnn/workspace/$QUALIFIER/jenkins_data
 export GITLAB_DATA=/home/cnn/workspace/$QUALIFIER/gitlab_data

@@ -1,0 +1,7 @@
+  slave1:
+    image: jenkins-slave
+    container_name: slave1
+    hostname: slave1
+    networks:
+      - network_x
+
